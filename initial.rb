@@ -1,3 +1,5 @@
+# require 'pry'
+
 class Deck
 
 	# card_array
@@ -34,8 +36,16 @@ class Card
 	end
 end
 
-module ParseDeck
-	# parse deck from CSV file
+class ParseDeck
+	def get_deck_array(file)
+		file = File.open(file, "r")
+		# binding.pry
+		contents = file.read
+		# binding.pry
+		strings = contents.split("\n")
+		strings.delete_if{ |words| words == ""}
+		strings.each_slice(2).to_a
+	end
 end
 
 # user sees definition
@@ -46,13 +56,15 @@ end
 #
 
 
-case guess
-when is_correct?
-	return correct #from view
-	deck.discard!
+# case guess
+# when is_correct?
+# 	return correct #from view
+# 	deck.discard!
 
-when is_correct? == false ||
-	return try_again #from view
-end
+# when is_correct? == false ||
+# 	return try_again #from view
+# end
 
-
+file = "flashcard_samples.txt"
+deck = ParseDeck.new
+print deck.get_deck_array(file)
