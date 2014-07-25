@@ -19,19 +19,19 @@ class Deck
 end
 
 class Card
+	attr_reader :definition, :card
+	def initialize
+		@definition = definition
+		@term = term
+	end
 
-	# definition
-	# term
-
-	def is_correct?
-		# checks to see if guess is correct 
-		# true/false
+	def is_correct?(guess)
+		guess.downcase == term.downcase
 	end
 
 	def show_definition
-		# self.definition
+		self.definition
 	end
-
 end
 
 module ParseDeck
@@ -43,4 +43,16 @@ end
 # check if guess is correct
 # 	- move to next if correct
 # 	- repropose same definition
-# 	
+#
+
+
+case guess
+when is_correct?
+	return correct #from view
+	deck.discard!
+
+when is_correct? == false ||
+	return try_again #from view
+end
+
+
