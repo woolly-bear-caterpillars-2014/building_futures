@@ -1,3 +1,5 @@
+# require 'pry'
+
 class Deck
 	attr_accessor :card_array, :discarded_cards
 	attr_reader :name
@@ -25,26 +27,31 @@ class Deck
 end
 
 class Card
-
+	attr_reader :definition, :card
 	def initialize
-		# definition
-		# term
+		@definition = definition
+		@term = term
 	end
 
-	def is_correct?
-		# checks to see if guess is correct
-		# true/false
+	def is_correct?(guess)
+		guess.downcase == term.downcase
 	end
 
 	def show_definition
-		# self.definition
+		self.definition
 	end
-
 end
 
-module ParseDeck
-end
-	# parse deck from CSV file
+class ParseDeck
+	def get_deck_array(file)
+		file = File.open(file, "r")
+		# binding.pry
+		contents = file.read
+		# binding.pry
+		strings = contents.split("\n")
+		strings.delete_if{ |words| words == ""}
+		strings.each_slice(2).to_a
+	end
 end
 
 # user sees definition
@@ -53,3 +60,17 @@ end
 # 	- move to next if correct
 # 	- repropose same definition
 #
+
+
+# case guess
+# when is_correct?
+# 	return correct #from view
+# 	deck.discard!
+
+# when is_correct? == false ||
+# 	return try_again #from view
+# end
+
+file = "flashcard_samples.txt"
+deck = ParseDeck.new
+print deck.get_deck_array(file)
