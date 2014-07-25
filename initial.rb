@@ -1,30 +1,38 @@
 class Deck
+	attr_accessor :card_array, :discarded_cards
+	attr_reader :name
 
-	# card_array
-	# name_of_deck
-	# discarded
+	def initialize (name, card_array)
+		@card_array = card_array
+		@name = name
+		@discarded_cards = []
+	end
 
-	def shuffle_deck
-		# shuffles deck
+	def shuffle_deck!
+		self.card_array.shuffle!
 	end
 
 	def pick_card
-		# returns last card obj
+		card_array.last
 	end
 
 	def discard!
-		# pop to discarded array
+		discarded_card = self.card_array.pop
+		self.discarded_cards << discarded_card
+		discarded_card
 	end
 
 end
 
 class Card
 
-	# definition
-	# term
+	def initialize
+		# definition
+		# term
+	end
 
 	def is_correct?
-		# checks to see if guess is correct 
+		# checks to see if guess is correct
 		# true/false
 	end
 
@@ -35,6 +43,7 @@ class Card
 end
 
 module ParseDeck
+end
 	# parse deck from CSV file
 end
 
@@ -43,4 +52,4 @@ end
 # check if guess is correct
 # 	- move to next if correct
 # 	- repropose same definition
-# 	
+#
